@@ -10,6 +10,7 @@ function Home() {
       }}
     >
       <h1>Welcome Home!</h1>
+      <button type="button">get a joke</button>
     </div>
   );
 }
