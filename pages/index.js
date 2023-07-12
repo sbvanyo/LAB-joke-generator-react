@@ -1,28 +1,35 @@
 import React, { useState } from 'react';
 import getJoke from '../api/jokeData';
 
+// getJoke().then(console.warn).catch(console.error);
+
 function Home() {
   const [buttonText, setButtonText] = useState('get a joke');
   const [jokeSetup, setJokeSetup] = useState('');
   const [jokeDelivery, setJokeDelivery] = useState('');
-  const joke = getJoke();
+  const [joke, setJoke] = useState(null);
+
+  const handleJoke = async () => {
+    try {
+      if (buttonText === 'get a joke') {
+        const newJoke = await getJoke();
+        setJoke(newJoke);
+        setJokeSetup(newJoke.setup);
+      } else if (buttonText === 'get punchline' && joke) {
+        setJokeDelivery(joke.delivery);
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  };
 
   const handleClick = () => {
-    console.warn(joke);
     if (buttonText === 'get a joke') {
       setButtonText('get punchline');
     } else if (buttonText === 'get punchline') {
       setButtonText('get another joke');
     } else {
       window.location.reload();
-    }
-  };
-
-  const handleJoke = () => {
-    if (buttonText === 'get a joke') {
-      setJokeSetup('test setup');
-    } else if (buttonText === 'get punchline') {
-      setJokeDelivery('test punchline');
     }
   };
 
@@ -36,10 +43,10 @@ function Home() {
         margin: '0 auto',
       }}
     >
-      <h1>Welcome Home!</h1>
+      <h1>BRING ON THE JOKES:</h1>
       <button type="button" onClick={() => { handleClick(); handleJoke(); }}>{buttonText}</button>
-      <h2>{jokeSetup}</h2>
-      <h2>{jokeDelivery}</h2>
+      <h2 id="setup">{jokeSetup}</h2>
+      <h2 id="punchline">{jokeDelivery}</h2>
     </div>
   );
 }
