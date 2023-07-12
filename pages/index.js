@@ -4,16 +4,26 @@ import getJoke from '../api/jokeData';
 function Home() {
   const [buttonText, setButtonText] = useState('get a joke');
   const [jokeSetup, setJokeSetup] = useState('');
-  // const [jokeDelivery, setJokeDelivery] = useState('');
+  const [jokeDelivery, setJokeDelivery] = useState('');
   const joke = getJoke();
 
   const handleClick = () => {
-    setButtonText('get punchline');
     console.warn(joke);
+    if (buttonText === 'get a joke') {
+      setButtonText('get punchline');
+    } else if (buttonText === 'get punchline') {
+      setButtonText('get another joke');
+    } else {
+      window.location.reload();
+    }
   };
 
-  const handleSetup = () => {
-    setJokeSetup('test setup');
+  const handleJoke = () => {
+    if (buttonText === 'get a joke') {
+      setJokeSetup('test setup');
+    } else if (buttonText === 'get punchline') {
+      setJokeDelivery('test punchline');
+    }
   };
 
   return (
@@ -27,8 +37,9 @@ function Home() {
       }}
     >
       <h1>Welcome Home!</h1>
-      <button type="button" onClick={() => { handleClick(); handleSetup(); }}>{buttonText}</button>
+      <button type="button" onClick={() => { handleClick(); handleJoke(); }}>{buttonText}</button>
       <h2>{jokeSetup}</h2>
+      <h2>{jokeDelivery}</h2>
     </div>
   );
 }
