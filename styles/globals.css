@@ -18,5 +18,25 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: #49b1be;
+  color: whitesmoke;
+}
+
+button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
+  background-color: rgb(255, 245, 131);
+}
+
+h1 {
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+#punchline {
+  font-style: italic;
 }
